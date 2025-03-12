@@ -70,13 +70,13 @@
                         </div>
                     {% endfor %}
 
-                    {% if paginate.pages > 1 %}
-                        {{ paginate | default_pagination }}
-                    {% endif %}
+                    <div class="max-w-4xl mx-auto">
+                        {% render 'pagination', pagination: paginate %}
+                    </div>
                 {% endpaginate %}
             </div>
         {% else %}
-            There are no comments in this article.
+            <p class="text-center font-medium my-5">There are no comments in this article.</p>
         {% endif %}
     </div>
 
