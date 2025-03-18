@@ -8,7 +8,18 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {},
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "mobile_menu_title": "The Scaioteal",
+          "menu": "main-menu"
+        }
+      }
+    },
+    "content_for_index": []
+  },
   "presets": {
     "Default": {}
   }
