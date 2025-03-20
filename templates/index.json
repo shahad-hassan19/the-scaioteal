@@ -24,10 +24,15 @@
         "featured_collection": "",
         "number_of_products_to_show": 4
       }
+    },
+    "contact_form_8wrBC9": {
+      "type": "contact-form",
+      "settings": {}
     }
   },
   "order": [
     "featured-collection",
-    "featured_collection_4BtxbH"
+    "featured_collection_4BtxbH",
+    "contact_form_8wrBC9"
   ]
 }
