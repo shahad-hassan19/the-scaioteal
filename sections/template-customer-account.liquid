@@ -1,7 +1,0 @@
-<div>
-  <h1>Welcome, {{ customer.first_name }}!</h1>
-  <p>Your orders:</p>
-  {% for order in customer.orders %}
-    <p>Order #{{ order.name }} - {{ order.total_price | money }}</p>
-  {% endfor %}
-</div>
