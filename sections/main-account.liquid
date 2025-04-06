@@ -1,4 +1,4 @@
-<div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-5xl px-8">
+<div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-5xl lg:px-8">
   <h1 class="text-2xl font-bold text-gray-700">
     Account
   </h1>
@@ -17,7 +17,7 @@
               <div class="relative">
                 <div class="w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80">
                   {% if order.line_items.first.image %}
-                    <img class="w-full h-full object-center object-cover" src="{{ order.line_items.first.image | img_url: 'medium' }}" alt="{{ order.line_items.first.image.alt }}">
+                    <img class="w-full h-full object-center object-cover" src="{{ order.line_items.first.image | image_url: 'medium' }}" alt="{{ order.line_items.first.image.alt }}">
                   {% else %}
                     {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-center object-cover' }}
                   {% endif %}
