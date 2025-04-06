@@ -60,8 +60,27 @@
         </a>
 
         {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_login_url }}" class="md:ml-5 text-base text-gray-500 hover:text-gray-900">Login</a>
-          <a href="{{ routes.account_register_url }}" class="md:ml-5 text-base text-gray-500 hover:text-gray-900">Register</a>
+          {% if customer %}
+            <!-- Logged in user section -->
+            <div class="relative md:ml-5" x-data="{ accountMenuOpen: false }">
+              <button @click="accountMenuOpen = !accountMenuOpen" class="flex items-center space-x-2 text-base text-gray-500 hover:text-gray-900">
+                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
+                  {{ customer.first_name | slice: 0 | upcase }}{{ customer.last_name | slice: 0 | upcase }}
+                </div>
+                <span class="ml-1">{{ customer.first_name }} {{ customer.last_name }}</span>
+              </button>
+
+              <!-- Account dropdown menu -->
+              <div x-show="accountMenuOpen" @click.away="accountMenuOpen = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
+                <a href="{{ routes.account_url }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Account</a>
+                <a href="{{ routes.account_logout_url }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+              </div>
+            </div>
+          {% else %}
+            <!-- Guest user section -->
+            <a href="{{ routes.account_login_url }}" class="md:ml-5 text-base text-gray-500 hover:text-gray-900">Login</a>
+            <a href="{{ routes.account_register_url }}" class="md:ml-5 text-base text-gray-500 hover:text-gray-900">Register</a>
+          {% endif %}
         {% endif %}
       </div>
     </div>
@@ -69,20 +88,51 @@
 
   <!-- MOBILE MENU CONTAINER -->
   <div x-show="mobileMenuOpen" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
-    <div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
+    <div x-on:click="mobileMenuOpen = false" class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
         <div class="p-5 divide-y-2 divide-gray-50">
 
-            <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
+            <!-- MOBILE MENU HEADER TITLE AND CLOSE BUTTON -->
             <div class="flex items-center justify-between pb-3">
                 <div>
-                    <h1 class="text-lg text-gray-500">
+                    <h1 class="text-lg text-gray-500 font-bold">
                       {{ section.settings.mobile_menu_title }}
                     </h1>
                 </div>
                 <div class="-mr-2">
-                    <button type="button" x-on:click="mobileMenuOpen = false" class="bg-white rounded-md p-2 text-gray-500">
-                        {% render 'icon-close' %}
+                  <div class="flex items-center justify-start gap-x-2">
+                    <button x-on:click="searchBarOpen = true" type="button" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
+                      {% render 'icon-search' %}
                     </button>
+                    <a href="{{ routes.cart_url }}" class="md:ml-5 whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
+                      {% render 'icon-shopping-bag' %}
+                    </a>
+
+                    {% if shop.customer_accounts_enabled %}
+                      {% if customer %}
+                        <!-- Logged in user section -->
+                        <div class="relative md:ml-5" x-data="{ accountMenuOpen: false }">
+                          <button @click="accountMenuOpen = !accountMenuOpen" class="flex items-center space-x-2 text-base text-gray-500 hover:text-gray-900">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
+                              {{ customer.first_name | slice: 0 | upcase }}{{ customer.last_name | slice: 0 | upcase }}
+                            </div>
+                            <span class="ml-1">{{ customer.first_name }} {{ customer.last_name }}</span>
+                          </button>
+
+                          <!-- Account dropdown menu -->
+                          <div x-show="accountMenuOpen" @click.away="accountMenuOpen = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
+                            <a href="{{ routes.account_url }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Account</a>
+                            <a href="{{ routes.account_logout_url }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                          </div>
+                        </div>
+                      {% else %}
+                        <!-- Guest user section -->
+                        <div class="flex flex-col items-center">
+                          <a href="{{ routes.account_login_url }}" class="md:ml-5 text-base text-gray-500 hover:text-gray-900">Login</a>
+                          <a href="{{ routes.account_register_url }}" class="md:ml-5 text-base text-gray-500 hover:text-gray-900">Register</a>
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  </div>
                 </div>
             </div>
 
