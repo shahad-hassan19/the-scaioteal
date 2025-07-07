@@ -13,13 +13,8 @@
       "type": "template-page",
       "settings": {}
     },
-    "contact_form_aNbYFn": {
-      "type": "contact-form",
-      "settings": {}
-    }
   },
   "order": [
     "template",
-    "contact_form_aNbYFn"
   ]
 }
