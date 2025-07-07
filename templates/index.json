@@ -29,15 +29,10 @@
       "type": "contact-form",
       "settings": {}
     },
-    "custom-form": {
-      "type": "custom-form",
-      "settings": {}
-    }
   },
   "order": [
     "featured-collection",
     "featured_collection_4BtxbH",
     "contact_form_8wrBC9",
-    "custom-form"
   ]
 }
