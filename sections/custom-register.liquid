@@ -1,36 +1,187 @@
-<div class="page-width" style="max-width:480px;margin:40px auto;">
-  <h1>{{ section.settings.heading }}</h1>
+```liquid
+<style>
+  .custom-register {
+    max-width: 480px;
+    margin: 40px auto;
+    padding: 36px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
 
-  {% form 'customer', id: 'custom-register' %}
-    {% if form.posted_successfully? %}
-      <p>{{ section.settings.success_text }}</p>
-      <a href="{{ routes.account_login_url }}" class="button">Sign in now</a>
-    {% else %}
-      {{ form.errors | default_errors }}
+  .custom-register h1 {
+    margin: 0 0 28px;
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #222222;
+  }
 
-      <input type="hidden" name="contact[tags]" value="registered">
+  #custom-register {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-      <label for="reg-first">First name</label>
-      <input id="reg-first" type="text" name="contact[first_name]" required>
+  #custom-register label {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+  }
 
-      <label for="reg-last">Last name</label>
-      <input id="reg-last" type="text" name="contact[last_name]">
+  #custom-register input[type="text"],
+  #custom-register input[type="email"] {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #d6d6d6;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #222222;
+    font: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
 
-      <label for="reg-email">Email</label>
-      <input id="reg-email" type="email" name="contact[email]" required>
+  #custom-register input:focus {
+    outline: none;
+    border-color: #333333;
+    box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.1);
+  }
 
-      <button type="submit" class="button">Create account</button>
-    {% endif %}
-  {% endform %}
+  #custom-register .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 18px;
+    padding: 14px 20px;
+    border: 1px solid #222222;
+    border-radius: 6px;
+    background: #222222;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  #custom-register .button:hover {
+    background: #444444;
+    border-color: #444444;
+  }
+
+  #custom-register .errors {
+    margin-bottom: 12px;
+    padding: 12px 16px;
+    border: 1px solid #e5b8b8;
+    border-radius: 6px;
+    background: #fff3f3;
+    color: #a12626;
+    font-size: 14px;
+  }
+
+  .custom-register__success {
+    margin: 0 0 18px;
+    color: #28633a;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  @media screen and (max-width: 749px) {
+    .custom-register {
+      margin: 24px auto;
+      padding: 24px 18px;
+      border-radius: 8px;
+    }
+
+    .custom-register h1 {
+      font-size: 26px;
+      margin-bottom: 22px;
+    }
+  }
+</style>
+
+<div class="page-width">
+  <div class="custom-register">
+    <h1>{{ section.settings.heading }}</h1>
+
+    {% form 'customer', id: 'custom-register' %}
+      {% if form.posted_successfully? %}
+        <p class="custom-register__success">
+          {{ section.settings.success_text }}
+        </p>
+        <a href="{{ routes.account_login_url }}" class="button">
+          Sign in now
+        </a>
+      {% else %}
+        {{ form.errors | default_errors }}
+
+        <input type="hidden" name="contact[tags]" value="registered">
+
+        <label for="reg-first">First name</label>
+        <input
+          id="reg-first"
+          type="text"
+          name="contact[first_name]"
+          autocomplete="given-name"
+          required
+        >
+
+        <label for="reg-last">Last name</label>
+        <input
+          id="reg-last"
+          type="text"
+          name="contact[last_name]"
+          autocomplete="family-name"
+        >
+
+        <label for="reg-email">Email</label>
+        <input
+          id="reg-email"
+          type="email"
+          name="contact[email]"
+          autocomplete="email"
+          required
+        >
+
+        <button type="submit" class="button">
+          Create account
+        </button>
+      {% endif %}
+    {% endform %}
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "Custom register",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Create an account" },
-    { "type": "text", "id": "success_text", "label": "Success message", "default": "You're registered! Sign in with your email to access your account." }
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Create an account"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "You're registered! Sign in with your email to access your account."
+    }
   ],
-  "presets": [{ "name": "Custom register" }]
+  "presets": [
+    {
+      "name": "Custom register"
+    }
+  ]
 }
 {% endschema %}
+```
