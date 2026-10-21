@@ -1,0 +1,36 @@
+<div class="page-width" style="max-width:480px;margin:40px auto;">
+  <h1>{{ section.settings.heading }}</h1>
+
+  {% form 'customer', id: 'custom-register' %}
+    {% if form.posted_successfully? %}
+      <p>{{ section.settings.success_text }}</p>
+      <a href="{{ routes.account_login_url }}" class="button">Sign in now</a>
+    {% else %}
+      {{ form.errors | default_errors }}
+
+      <input type="hidden" name="contact[tags]" value="registered">
+
+      <label for="reg-first">First name</label>
+      <input id="reg-first" type="text" name="contact[first_name]" required>
+
+      <label for="reg-last">Last name</label>
+      <input id="reg-last" type="text" name="contact[last_name]">
+
+      <label for="reg-email">Email</label>
+      <input id="reg-email" type="email" name="contact[email]" required>
+
+      <button type="submit" class="button">Create account</button>
+    {% endif %}
+  {% endform %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom register",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Create an account" },
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "You're registered! Sign in with your email to access your account." }
+  ],
+  "presets": [{ "name": "Custom register" }]
+}
+{% endschema %}
